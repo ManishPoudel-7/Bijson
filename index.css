@@ -1,0 +1,45 @@
+body{
+    background-color: #808080;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    flex-direction: column;
+}
+.myForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.myForm input{
+    border-radius: 10px;
+    height: 20px;
+    margin: 2vh;
+}
+.myForm button{
+    border-radius: 10px;
+    height: 25px;
+}
+
+table {
+            width: 600px;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 10px 10px 10px grey;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        td:first-child {
+            background-color: #f0f2f5;
+            font-weight: 600;
+            color: #333;
+            width: 40%;
+        }
+        tr:hover {
+            background-color: #f9f9f9;
+        }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bijson Pvt Ltd</title>
+    <link rel="stylesheet" href="index.css">    
+</head>
+<body>
+    <div class="container">
+    <h1>Link Posting</h1>
+    <form class="myForm" action="/scrapper" method="POST">
+        <input type="text" id="inputUrl" name="inputUrl">
+        <button type="submit">Submit</button>
+    </form>
+    <div id="personalData"></div>
+    </div>
+    <script>
+        document.querySelector(".myForm").addEventListener("submit",async (e)=> {
+            e.preventDefault();
+
+            const inputUrl = document.getElementById("inputUrl").value;
+
+            const response = await fetch('/scrapper', {
+                method : "POST",
+                headers : {"Content-Type":"application/json"},
+                body: JSON.stringify({ inputUrl })
+            });
+
+            if (!response.ok) {
+            const error = await response.json();
+            document.getElementById('personalData').innerText = `Error: ${error.error}`;
+            return;
+            }
+
+            const data = await response.json();
+            const table = `
+                <table border="2px">
+                    <tr><th>Roll Number</th><td>${data.roll}</td></tr>
+                    <tr><th>Candidate Name</th><td>${data.name}</td></tr>
+                    <tr><th>Venue Name</th><td>${data.venue}</td></tr>
+                    <tr><th>Exam Date</th><td>${data.examDate}</td></tr>
+                    <tr><th>Exam Time</th><td>${data.examTime}</td></tr>
+                    <tr><th>Subject</th><td>${data.subject}</td></tr>    
+                </table>
+            `;
+
+            document.getElementById('personalData').innerHTML= table;
+        })
+    </script>
+</body>
+</html>

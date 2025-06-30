@@ -11,6 +11,7 @@
 
     app.use(cors());
     app.use(bodyParser.urlencoded({extended:true}));
+    app.use(express.json());
     app.use(express.static(__dirname));
 
     app.post('/scrapper' , async (req,res)=>{
@@ -41,7 +42,7 @@
             const sectionName = `Section ${sectionIndex + 1}`;
 
             let attempted = 0, notAttempted = 0, correct = 0, wrong = 0;
-                
+
         });
 
         result.push({

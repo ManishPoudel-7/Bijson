@@ -18,3 +18,10 @@ This is a Node.js web scraper built using Express, Axios, and Cheerio. The app t
 - App loads but scraping fails on deployed version
 - Works fully **locally**
 
+- ## 🌐 Live Preview (Render)
+
+[https://bijson-assignment.onrender.com](https://bijson-assignment.onrender.com)
+
+> ⚠️ Note: This was my first time deploying on Render. The site is live, but scraping doesn't work due to external request issues. It works perfectly on the local system.
+
+

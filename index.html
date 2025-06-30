@@ -12,6 +12,7 @@
     <form class="myForm" action="/scrapper" method="POST">
         <input type="text" id="inputUrl" name="inputUrl">
         <button type="submit">Submit</button>
+        <button id="downloadCsv">Download as CSV</button>
     </form>
     <div id="personalData"></div>
     <div id="marks"></div>
@@ -85,6 +86,11 @@
             marksTable += `</table>`;
             document.getElementById('marks').innerHTML = marksTable;
         }); 
+
+        document.getElementById("downloadBtn").addEventListener("click", () => {
+            window.location.href = "/download";
+        });
+
 </script>
 
 </body>

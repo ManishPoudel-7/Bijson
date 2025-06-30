@@ -3,6 +3,8 @@
     const cors = require('cors');
     const bodyParser = require('body-parser');
     const express = require('express');
+    const fs = require('fs');
+    const path = require('path');
     const port =  3000;
 
     const app = express();
@@ -39,25 +41,9 @@
             const sectionName = `Section ${sectionIndex + 1}`;
 
             let attempted = 0, notAttempted = 0, correct = 0, wrong = 0;
-
-            section.find(".question-pnl").each((_, questionBlock) => {
-                const block = $(questionBlock);
-                const correctOptionText = block.find(".rightAns").first().text().trim();
-                const correctOptionNumber = correctOptionText.match(/^(\d+)/)?.[1];
-                const metaTable = block.find(".menu-tbl");
-                const chosenOption = metaTable.find("td:contains('Chosen Option :')").next().text().trim();
-                const status = metaTable.find("td:contains('Status :')").next().text().trim();
-
-                if (status.toLowerCase() === "answered") {
-                    attempted++;
-                    if (correctOptionNumber === chosenOption) correct++;
-                    else wrong++;
-                } else {
-                notAttempted++;
-                }
-            });
-
+                
         });
+
         result.push({
             section: sectionName,
             attempted,
@@ -67,25 +53,37 @@
             totalMarks: correct * 2
         });
 
-            console.log(result);
-            
-
-            res.json({
-                name,
-                roll,
-                venue,
-                examDate,
-                examTime,
-                subject,
-                marks: result
-                });
-
+        res.json({
+            name,
+            roll,
+            venue,
+            examDate,
+            examTime,
+            subject,
+            marks: result
+            });
 
         } catch (error) {
             console.error(`Error Occured while Scrapping ${error.message}`);    
             return res.status(500).json({ error: 'Failed to fetch or parse the HTML' });
         }
     })
+
+
+        app.get('/download', (req, res) => {
+            const csvContent = `Name,Roll,Venue,Date,Time,Subject\n${name},${roll},${venue},${examDate},${examTime},${subject}`;
+            const filePath = path.join(__dirname, 'data.csv');
+
+            fs.writeFile(filePath, csvContent, (err) => {
+                if (err) {
+                    console.error("Error writing CSV file:", err);
+                    return res.status(500).send('Failed to generate CSV');
+                }
+                res.download(filePath, 'result.csv', (err) => {
+                    if (err) console.error("Download error:", err);
+                });
+            });
+        });
 
     app.listen(port , ()=>{
         console.log(`Server is running at http://localhost:${port}`);

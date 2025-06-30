@@ -1,45 +1,89 @@
-body{
-    background-color: #808080;
-    margin: 10px;
-    padding: 10px;
+body {
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
     display: flex;
-    justify-content: center;
-    align-items: center;    
     flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
 }
-.myForm{
+
+.container {
+    margin-top: 50px;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    width: 90%;
+    max-width: 800px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.myForm {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 30px;
+    gap: 10px;
+    flex-wrap: wrap;
 }
-.myForm input{
-    border-radius: 10px;
-    height: 20px;
-    margin: 2vh;
+
+.myForm input {
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    width: 300px;
 }
-.myForm button{
-    border-radius: 10px;
-    height: 25px;
+
+.myForm button {
+    border-radius: 8px;
+    padding: 10px 20px;
+    background-color: #2c84cc;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.myForm button:hover {
+    background-color: #3556eb;
 }
 
 table {
-            width: 600px;
-            border-collapse: collapse;
-            background-color: #ffffff;
-            box-shadow: 10px 10px 10px grey;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        td {
-            padding: 15px 20px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        td:first-child {
-            background-color: #f0f2f5;
-            font-weight: 600;
-            color: #333;
-            width: 40%;
-        }
-        tr:hover {
-            background-color: #f9f9f9;
-        }
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+td, th {
+    padding: 12px 20px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+td:first-child {
+    background-color: #f9f9f9;
+    font-weight: 600;
+    color: #444;
+    width: 40%;
+}
+
+th {
+    background-color: blue;
+    color: white;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}

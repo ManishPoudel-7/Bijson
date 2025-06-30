@@ -14,26 +14,31 @@
         <button type="submit">Submit</button>
     </form>
     <div id="personalData"></div>
+    <div id="marks"></div>
     </div>
     <script>
-        document.querySelector(".myForm").addEventListener("submit",async (e)=> {
+        document.querySelector(".myForm").addEventListener("submit", async (e) => {
             e.preventDefault();
 
             const inputUrl = document.getElementById("inputUrl").value;
 
             const response = await fetch('/scrapper', {
-                method : "POST",
-                headers : {"Content-Type":"application/json"},
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ inputUrl })
             });
 
             if (!response.ok) {
-            const error = await response.json();
-            document.getElementById('personalData').innerText = `Error: ${error.error}`;
-            return;
+                const error = await response.json();
+                document.getElementById('personalData').innerText = `Error: ${error.error}`;
+                return;
             }
 
             const data = await response.json();
+            // console.log(data);
+            
+
+            // Personal Details Table
             const table = `
                 <table border="2px">
                     <tr><th>Roll Number</th><td>${data.roll}</td></tr>
@@ -44,9 +49,43 @@
                     <tr><th>Subject</th><td>${data.subject}</td></tr>    
                 </table>
             `;
+            document.getElementById('personalData').innerHTML = table;
 
-            document.getElementById('personalData').innerHTML= table;
-        })
-    </script>
+            // Marks Table
+            let marksTable = `
+                <h2>Marks In Each Subject</h2>
+                <table border="1" cellpadding="5" cellspacing="0">
+                    <tr>
+                        <th>Subject</th>
+                        <th>Attem.</th>
+                        <th>Not Attem.</th>
+                        <th>R</th>
+                        <th>W</th>
+                        <th>Marks</th>
+                    </tr>
+            `;
+
+            if (data.marks && Array.isArray(data.marks)) {
+                data.marks.forEach(section => {
+                    marksTable += `
+                        <tr>
+                            <td>${section.section}</td>
+                            <td>${section.attempted}</td>
+                            <td>${section.notAttempted}</td>
+                            <td>${section.correct}</td>
+                            <td>${section.wrong}</td>
+                            <td>${section.totalMarks}</td>
+                        </tr>
+                    `;
+                });
+            } else {
+                marksTable += `<tr><td colspan="6">No section-wise marks available</td></tr>`;
+            }
+
+            marksTable += `</table>`;
+            document.getElementById('marks').innerHTML = marksTable;
+        }); 
+</script>
+
 </body>
 </html>
